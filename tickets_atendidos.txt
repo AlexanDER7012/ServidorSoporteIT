@@ -1,0 +1,22 @@
+TK-0001|1234567890123|Erick Palomo|Software|Software|false|Kevin|1.31
+TK-0002|0987654321098|Hans Palomo|Hardware|Hardware|false|Kevin|1.62
+TK-0001|1100229933456|Marvin Andrade|Software|Software|false|Palomo|2.46
+TK-0002|0099887766543|Karla To|Software|Software|false|Palomo|0.64
+TK-0003|7685994321458|Sandra Mazariegos||Incidente Critico|true|Palomo|0.22
+TK-0002|1234567890123|Erick Palomo|Se quemo|Incidente Critico|true|Yo|0.84
+TK-0003|0987654321432|Si Juan|Exploto|Incidente Critico|true|Yo|0.37
+TK-0004|1234567890000|Juan Monterroso|Infraestructura|Infraestructura|false|Elmer|1.25
+TK-0006|1234567890123|si moscoso|Hardware|Hardware|false|Elmer|0.34
+TK-0001|3055776110301|Bryant To|Hardware|Hardware|false|dmfska|1.57
+TK-0004|3356085821901|Otto Najera|Falla de sistema|Incidente Critico|true|Bryant|0.53
+TK-0001|3055776110301|Bryant To|Hardware|Hardware|false|Bryant|0.25
+TK-0001|3055776110301|Bryant To|Servidores|Servidores|false|Senju|0.97
+TK-0003|2548963247852|Erick Alexander|Perdida de registro de contrase;as|Accesos|true|Dev|1.65
+TK-0002|3055776110301|Pepe aguilar|Software|Software|false|Erick|0.94
+TK-0001|3055776110301|Juan Perez|Hardware|Hardware|false|Bryant|1.68
+TK-0003|3055776110301|Marlon Perez|Infraestructura|Infraestructura|false|Senju|0.67
+TK-0004|3055776110301|Kevin Alvarez|Servidores|Servidores|false|Senju|0.55
+TK-0005|3055776110301|Pedro|Falla De Servidor|Incidente Critico|true|Senju|0.21
+TK-0007|3055776110301|Adrino Valle|Hardware|Hardware|false|Erick|0.19
+TK-0008|3055776110301|Alejandro Valle|Software|Software|false|Erick|0.17
+TK-0006|3055776110301|Rodrigo Ovando|Perdida de Datos|Accesos|true|Senju|0.19
