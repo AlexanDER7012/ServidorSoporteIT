@@ -1,5 +1,6 @@
 estructuraDatos\NodoArbol.class
 sistema\sistemadesoportetecnicoit\shared\models\Ticket.class
+controllers\ServidorPC1Controller$PcCardRefs.class
 conexion\DataRepository.class
 estructuraDatos\ArbolBPlus.class
 estructuraDatos\NodoTicket.class
@@ -12,6 +13,8 @@ estructuraDatos\PilaHistorial.class
 estructuraDatos\ColaPrioridad.class
 estructuraDatos\HashMapUsuarios.class
 module-info.class
+controllers\ServidorPC1Controller$EstadoPC.class
+com\erick\pc_1\Launcher.class
 estructuraDatos\HashMapUsuarios$Entry.class
 sistema\sistemadesoportetecnicoit\shared\protocolo\Mensaje.class
 conexion\ManejadorCliente$1.class
