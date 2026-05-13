@@ -134,4 +134,11 @@ public class ManejadorCliente implements Runnable {
             e.printStackTrace();
         }
     }
+    public void avisarCierreServidor() {
+    Mensaje alerta = new Mensaje(TipoMensaje.SERVIDOR_DETENIDO, "El servidor se ha desconectado.", "PC1");
+    enviarRespuesta(alerta);
+    try{ Thread.sleep(100); }
+    catch (InterruptedException e) {}
+    cerrarConexion();
+}
 }

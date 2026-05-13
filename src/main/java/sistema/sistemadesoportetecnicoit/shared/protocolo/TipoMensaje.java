@@ -33,5 +33,7 @@ public enum TipoMensaje {
 
     OK,
     ERROR,
-    DESCONECTAR
+    DESCONECTAR,
+    
+    SERVIDOR_DETENIDO
 }

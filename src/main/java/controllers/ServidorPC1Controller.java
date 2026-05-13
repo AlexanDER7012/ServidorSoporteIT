@@ -126,7 +126,8 @@
 
                 synchronized (hilosClientes){
                     actualizarLog("Cerrando " + hilosClientes.size() + " conexiones activas...");
-                    for (ManejadorCliente manejador : hilosClientes) {
+                    for (ManejadorCliente manejador : hilosClientes){
+                        manejador.avisarCierreServidor();
                         manejador.cerrarConexion();
                     }
                     hilosClientes.clear();
