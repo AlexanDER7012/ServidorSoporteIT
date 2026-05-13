@@ -16,6 +16,7 @@ public class ManejadorCliente implements Runnable {
     private String nombrePC = "Desconocido";
     private ObjectOutputStream out;
     private final List<String> PCS_AUTORIZADAS = List.of("PC2", "PC3", "PC4", "PC5");
+    private volatile boolean cierreOrdenado = false;
 
     public ManejadorCliente(Socket socket, DataRepository repositorio, ServidorPC1Controller controlador) {
         this.socket = socket;
@@ -55,8 +56,10 @@ public class ManejadorCliente implements Runnable {
                         }
 
                         this.nombrePC = origen;
-                        if(controlador != null){
+                        if (controlador != null) {
                             controlador.actualizarLog("Estacion conectada e identificada como: " + nombrePC);
+                            controlador.actualizarEstadoPC(nombrePC, ServidorPC1Controller.EstadoPC.ONLINE,
+                                    socket.getInetAddress().getHostAddress());
                         }
                     }
                     
@@ -103,11 +106,14 @@ public class ManejadorCliente implements Runnable {
                     break;
                 }
             }
-        }catch(Exception e){
-            if(controlador != null){
+        } catch (Exception e) {
+            if (controlador != null) {
                 controlador.actualizarLog("Conexión perdida con: " + nombrePC);
             }
-        }finally{
+        } finally {
+            if (!cierreOrdenado && !nombrePC.equals("Desconocido") && controlador != null) {
+                controlador.actualizarEstadoPC(nombrePC, ServidorPC1Controller.EstadoPC.ERROR, "---");
+            }
             cerrarConexion();
         }
     }
@@ -135,10 +141,10 @@ public class ManejadorCliente implements Runnable {
         }
     }
     public void avisarCierreServidor() {
-    Mensaje alerta = new Mensaje(TipoMensaje.SERVIDOR_DETENIDO, "El servidor se ha desconectado.", "PC1");
-    enviarRespuesta(alerta);
-    try{ Thread.sleep(100); }
-    catch (InterruptedException e) {}
-    cerrarConexion();
-}
+        cierreOrdenado = true;
+        Mensaje alerta = new Mensaje(TipoMensaje.SERVIDOR_DETENIDO, "El servidor se ha desconectado.", "PC1");
+        enviarRespuesta(alerta);
+        try { Thread.sleep(100); } catch (InterruptedException e) {}
+        cerrarConexion();
+    }
 }

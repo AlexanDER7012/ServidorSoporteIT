@@ -22,6 +22,22 @@
             <artifactId>javafx-fxml</artifactId>
             <version>17.0.2</version>
         </dependency>
+        <!-- Ikonli — FontAwesome 5 -->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-core</artifactId>
+            <version>12.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>12.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-fontawesome5-pack</artifactId>
+            <version>12.3.1</version>
+        </dependency>
         <!-- Librerías nativas de Windows necesarias para el fat JAR ejecutable -->
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -66,6 +82,10 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>com.erick.pc_1.MainLauncher</mainClass>
+                    <options>
+                        <option>--add-modules</option>
+                        <option>org.kordamp.ikonli.core,org.kordamp.ikonli.javafx,org.kordamp.ikonli.fontawesome5</option>
+                    </options>
                 </configuration>
                 <executions>
                     <execution>
