@@ -1,5 +1,6 @@
     package controllers;
 
+    import conexion.Configuracion;
     import conexion.DataRepository;
     import conexion.ManejadorCliente;
     import java.io.IOException;
@@ -63,8 +64,8 @@
         private DataRepository repositorio = new DataRepository();
         private ServerSocket servidor;
         private boolean ejecutando = false;
-        private final int PUERTO = 5000;
-        private final String IP_LOCAL = "10.193.51.124";
+        private final int PUERTO = Configuracion.PUERTO;
+        private final String IP_LOCAL = Configuracion.HOST;
 
         @Override
         public void initialize(URL url, ResourceBundle rb) {
