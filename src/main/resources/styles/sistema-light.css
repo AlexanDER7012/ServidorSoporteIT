@@ -1,0 +1,104 @@
+/* ══════════════════════════════════════════════
+   Tema Claro — sobreescribe colores neutros.
+   Los acentos de cada PC no se tocan.
+   ══════════════════════════════════════════════ */
+
+.screen-root {
+    -fx-background-color: #f0f4f8;
+}
+
+/* ── Header ── */
+.panel-header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+}
+
+.header-title    { -fx-text-fill: #1e293b; }
+.header-subtitle { -fx-text-fill: #64748b; }
+
+/* ── Split pane ── */
+.split-dark {
+    -fx-background-color: #f0f4f8;
+}
+
+.split-dark > .split-pane-divider {
+    -fx-background-color: #e2e8f0;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent #e2e8f0 transparent transparent;
+}
+
+/* ── Labels generales ── */
+.field-label  { -fx-text-fill: #475569; }
+.muted-label  { -fx-text-fill: #64748b; }
+.info-label   { -fx-text-fill: #64748b; }
+
+/* ── Iconos ── */
+.icon-ghost { -fx-icon-color: #94a3b8; }
+
+/* ── Botones ── */
+.btn-ghost {
+    -fx-text-fill: #475569;
+    -fx-border-color: #cbd5e1;
+}
+
+.btn-ghost:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #1e293b;
+}
+
+.btn-ghost:pressed {
+    -fx-background-color: #e2e8f0;
+}
+
+/* ── Contadores de colas ── */
+.counter-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+}
+
+.counter-value { -fx-text-fill: #1e293b; }
+
+/* ── Panel de PCs ── */
+.pc-panel {
+    -fx-background-color: #f0f4f8;
+}
+
+.pc-card-offline {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0 #e2e8f0 #e2e8f0 #94a3b8;
+}
+
+.pc-card-online {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0 #e2e8f0 #e2e8f0 #4ade80;
+}
+
+.pc-card-error {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0 #e2e8f0 #e2e8f0 #fb923c;
+}
+
+.pc-card-name { -fx-text-fill: #1e293b; }
+.pc-card-role { -fx-text-fill: #64748b; }
+.pc-card-ip   { -fx-text-fill: #94a3b8; }
+
+/* ── Panel de log ── */
+.log-panel {
+    -fx-background-color: #f8fafc;
+}
+
+.log-header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+}
+
+.log-area {
+    -fx-control-inner-background: #f8fafc;
+    -fx-background-color: #f8fafc;
+}
+
+.log-area .content { -fx-background-color: #f8fafc; }
