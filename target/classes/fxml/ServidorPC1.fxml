@@ -31,9 +31,7 @@
         </VBox>
         <Pane HBox.hgrow="ALWAYS"/>
         <Button fx:id="btnTema" onAction="#toggleTema" styleClass="btn-ghost"
-                contentDisplay="GRAPHIC_ONLY" style="-fx-padding: 6 10 6 10;">
-            <graphic><FontIcon fx:id="iconTema" iconLiteral="fas-moon" iconSize="14"/></graphic>
-        </Button>
+                text="☀" style="-fx-padding: 6 10 6 10; -fx-font-size: 14px;"/>
         <HBox styleClass="status-pill-offline" alignment="CENTER" spacing="8">
             <Circle fx:id="ledEstado" radius="5" styleClass="led-offline"/>
             <Label text="OFFLINE" styleClass="status-pill-label-offline"/>

@@ -22,7 +22,6 @@
     import javafx.scene.Node;
     import javafx.scene.layout.VBox;
     import javafx.scene.shape.Circle;
-    import org.kordamp.ikonli.javafx.FontIcon;
     import sistema.sistemadesoportetecnicoit.shared.protocolo.Mensaje;
 
     public class ServidorPC1Controller implements Initializable {
@@ -49,7 +48,7 @@
         private final List<ManejadorCliente> hilosClientes = new ArrayList<>();
 
         @FXML private VBox screenRoot;
-        @FXML private FontIcon iconTema;
+        @FXML private Button btnTema;
 
         @FXML private TextArea txtLog;
         @FXML private Button btnStart;
@@ -128,9 +127,7 @@
         }
 
         private void actualizarIconTema() {
-            iconTema.setIconLiteral(
-                TemaManager.getTema() == TemaManager.Tema.CLARO ? "fas-moon" : "fas-sun"
-            );
+            btnTema.setText(TemaManager.getTema() == TemaManager.Tema.CLARO ? "🌙" : "☀");
         }
 
         @FXML
