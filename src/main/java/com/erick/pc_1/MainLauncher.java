@@ -14,7 +14,6 @@ public class MainLauncher extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ServidorPC1.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/styles/servidorpc1.css").toExternalForm());
             stage.setTitle("Servidor Central - PC1");
             stage.setResizable(false);
             stage.setScene(scene);

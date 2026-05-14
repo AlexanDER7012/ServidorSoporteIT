@@ -22,6 +22,7 @@
     import javafx.scene.Node;
     import javafx.scene.layout.VBox;
     import javafx.scene.shape.Circle;
+    import org.kordamp.ikonli.javafx.FontIcon;
     import sistema.sistemadesoportetecnicoit.shared.protocolo.Mensaje;
 
     public class ServidorPC1Controller implements Initializable {
@@ -46,6 +47,9 @@
 
         private List<ManejadorCliente> clientesActivos = new ArrayList<>();
         private final List<ManejadorCliente> hilosClientes = new ArrayList<>();
+
+        @FXML private VBox screenRoot;
+        @FXML private FontIcon iconTema;
 
         @FXML private TextArea txtLog;
         @FXML private Button btnStart;
@@ -76,6 +80,9 @@
             tarjetas.put("PC3", new PcCardRefs(cardPC3, iconPC3, ledPC3, ipPC3, statusPC3));
             tarjetas.put("PC4", new PcCardRefs(cardPC4, iconPC4, ledPC4, ipPC4, statusPC4));
             tarjetas.put("PC5", new PcCardRefs(cardPC5, iconPC5, ledPC5, ipPC5, statusPC5));
+
+            TemaManager.aplicar(screenRoot);
+            actualizarIconTema();
         }
 
         public void actualizarEstadoPC(String nombre, EstadoPC estado, String ip) {
@@ -111,6 +118,19 @@
                     r.status.setText("OFFLINE");
                 }
             });
+        }
+
+        @FXML
+        private void toggleTema() {
+            TemaManager.toggle();
+            TemaManager.aplicar(screenRoot);
+            actualizarIconTema();
+        }
+
+        private void actualizarIconTema() {
+            iconTema.setIconLiteral(
+                TemaManager.getTema() == TemaManager.Tema.CLARO ? "fas-moon" : "fas-sun"
+            );
         }
 
         @FXML

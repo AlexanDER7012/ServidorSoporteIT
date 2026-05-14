@@ -2,6 +2,7 @@ module com.erick.pc_1 {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.base;
+    requires org.kordamp.ikonli.javafx;
 
     opens com.erick.pc_1 to javafx.fxml;
     exports com.erick.pc_1;

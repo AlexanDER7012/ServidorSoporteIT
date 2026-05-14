@@ -20,3 +20,5 @@ TK-0005|3055776110301|Pedro|Falla De Servidor|Incidente Critico|true|Senju|0.21
 TK-0007|3055776110301|Adrino Valle|Hardware|Hardware|false|Erick|0.19
 TK-0008|3055776110301|Alejandro Valle|Software|Software|false|Erick|0.17
 TK-0006|3055776110301|Rodrigo Ovando|Perdida de Datos|Accesos|true|Senju|0.19
+TK-0002|3055776110301|Bryant Alexander To Castillo|Caida de Base de Datos|Incidente Critico|true|Dann|0.92
+TK-0001|3055776110301|Bryant Alexander To Castillo|Hardware|Hardware|false|Senju|2.22

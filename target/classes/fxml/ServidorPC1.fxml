@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox styleClass="screen-root" prefHeight="620.0" prefWidth="960.0"
+<VBox fx:id="screenRoot" styleClass="screen-root" prefHeight="620.0" prefWidth="960.0"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.ServidorPC1Controller">
@@ -30,6 +30,10 @@
             <Label text="Sistema de Soporte IT" styleClass="header-subtitle"/>
         </VBox>
         <Pane HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnTema" onAction="#toggleTema" styleClass="btn-ghost"
+                contentDisplay="GRAPHIC_ONLY" style="-fx-padding: 6 10 6 10;">
+            <graphic><FontIcon fx:id="iconTema" iconLiteral="fas-moon" iconSize="14"/></graphic>
+        </Button>
         <HBox styleClass="status-pill-offline" alignment="CENTER" spacing="8">
             <Circle fx:id="ledEstado" radius="5" styleClass="led-offline"/>
             <Label text="OFFLINE" styleClass="status-pill-label-offline"/>
