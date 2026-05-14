@@ -15,7 +15,8 @@ public class MainLauncher extends Application {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setTitle("Servidor Central - PC1");
-            stage.setResizable(false);
+            stage.setResizable(true);
+            stage.setMaximized(true);
             stage.setScene(scene);
             stage.show();
             stage.setOnCloseRequest(e -> System.exit(0));
