@@ -80,12 +80,15 @@ public class ManejadorCliente implements Runnable {
 
                         case SOLICITAR_TICKET:
                             String cola = (String) mensajeRecibido.getPayload();
-                            Ticket paraPC = "URGENTE".equals(cola) 
-                                            ? repositorio.extraerPC4Prioridad() 
+                            Ticket paraPC = "URGENTE".equals(cola)
+                                            ? repositorio.extraerPC4Prioridad()
                                             : repositorio.extraerPC3Normal();
 
                             enviarRespuesta(new Mensaje(TipoMensaje.ENTREGAR_TICKET, paraPC, "PC1"));
-                            if (controlador != null) controlador.actualizarContadores();
+                            if (controlador != null) {
+                                controlador.actualizarTicketEnAtencion(paraPC, nombrePC);
+                                controlador.actualizarContadores();
+                            }
                             break;
 
                         case BUSCAR_DPI:
@@ -97,6 +100,7 @@ public class ManejadorCliente implements Runnable {
                         case FINALIZAR_ATENCION:
                             Ticket terminado = (Ticket) mensajeRecibido.getPayload();
                             repositorio.guardarTicketFinalizado(terminado);
+                            if (controlador != null) controlador.limpiarTicketEnAtencion(nombrePC);
                             break;
 
                         case DESCONECTAR:

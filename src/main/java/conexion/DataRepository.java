@@ -111,5 +111,13 @@ public class DataRepository {
     public synchronized int getContadorPrioridad(){
         return filaUrgente.getTamano();
     }
+
+    public synchronized List<Ticket> getTicketsEnColaNormal() {
+        return filaNormal.getTickets();
+    }
+
+    public synchronized List<Ticket> getTicketsEnColaPrioridad() {
+        return filaUrgente.getTickets();
+    }
 }
     

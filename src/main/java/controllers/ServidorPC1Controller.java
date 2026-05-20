@@ -12,16 +12,24 @@
     import java.util.List;
     import java.util.Map;
     import java.util.ResourceBundle;
+    import javafx.animation.KeyFrame;
+    import javafx.animation.Timeline;
     import javafx.application.Platform;
     import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
     import javafx.fxml.Initializable;
+    import javafx.geometry.Pos;
     import javafx.scene.control.Button;
     import javafx.scene.control.Label;
     import javafx.scene.control.TextArea;
     import javafx.scene.Node;
+    import javafx.scene.layout.HBox;
+    import javafx.scene.layout.Priority;
+    import javafx.scene.layout.StackPane;
     import javafx.scene.layout.VBox;
     import javafx.scene.shape.Circle;
+    import javafx.util.Duration;
+    import sistema.sistemadesoportetecnicoit.shared.models.Ticket;
     import sistema.sistemadesoportetecnicoit.shared.protocolo.Mensaje;
 
     public class ServidorPC1Controller implements Initializable {
@@ -47,6 +55,9 @@
         private List<ManejadorCliente> clientesActivos = new ArrayList<>();
         private final List<ManejadorCliente> hilosClientes = new ArrayList<>();
 
+        private Ticket ticketEnAtencion = null;
+        private String pcAtendiendo = null;
+
         @FXML private VBox screenRoot;
         @FXML private Button btnTema;
 
@@ -56,6 +67,25 @@
         @FXML private Circle ledEstado;
         @FXML private Label lblColaNormal;
         @FXML private Label lblColaPrioridad;
+
+        @FXML private StackPane mainRoot;
+        @FXML private StackPane overlayPane;
+        @FXML private VBox overlayCard;
+        @FXML private Label lblOverlayNumero;
+        @FXML private Label lblOverlayMotivo;
+        @FXML private Label lblOverlayPC;
+        @FXML private Label lblOverlayCuenta;
+
+        @FXML private VBox cardTicketActivo;
+        @FXML private Label lblTicketActivoId;
+        @FXML private Label lblTicketActivoMotivo;
+        @FXML private Label lblTicketActivoBadge;
+        @FXML private HBox hboxTicketMeta;
+        @FXML private Label lblTicketMetaPC;
+        @FXML private Label lblTicketMetaUsuario;
+        @FXML private Label lblTicketMetaHora;
+        @FXML private Label lblResumenCola;
+        @FXML private VBox vboxItemsCola;
 
         @FXML private VBox cardPC2; @FXML private Node iconPC2; @FXML private Circle ledPC2; @FXML private Label ipPC2; @FXML private Label statusPC2;
         @FXML private VBox cardPC3; @FXML private Node iconPC3; @FXML private Circle ledPC3; @FXML private Label ipPC3; @FXML private Label statusPC3;
@@ -80,7 +110,7 @@
             tarjetas.put("PC4", new PcCardRefs(cardPC4, iconPC4, ledPC4, ipPC4, statusPC4));
             tarjetas.put("PC5", new PcCardRefs(cardPC5, iconPC5, ledPC5, ipPC5, statusPC5));
 
-            TemaManager.aplicar(screenRoot);
+            TemaManager.aplicar(mainRoot);
             actualizarIconTema();
         }
 
@@ -122,7 +152,7 @@
         @FXML
         private void toggleTema() {
             TemaManager.toggle();
-            TemaManager.aplicar(screenRoot);
+            TemaManager.aplicar(mainRoot);
             actualizarIconTema();
         }
 
@@ -217,6 +247,7 @@
                     int prioridad = repositorio.getContadorPrioridad();
                     lblColaNormal.setText(String.valueOf(normal));
                     lblColaPrioridad.setText(String.valueOf(prioridad));
+                    refrescarPanelTickets();
                 } catch (Exception e) {
                     actualizarLog("Error al actualizar contadores: " + e.getMessage());
                 }
@@ -246,5 +277,133 @@
                 txtLog.appendText("[" + java.time.LocalTime.now().withNano(0) + "] !!! ALERTA: " + mensaje.toUpperCase() + " !!!\n");
                 System.err.println("SEGURIDAD: " + mensaje);
             });
+        }
+
+        public void actualizarTicketEnAtencion(Ticket ticket, String pc) {
+            Platform.runLater(() -> {
+                ticketEnAtencion = ticket;
+                pcAtendiendo = pc;
+                refrescarPanelTickets();
+                if (ticket != null) mostrarNotificacionDespacho(ticket, pc);
+            });
+        }
+
+        public void limpiarTicketEnAtencion(String pc) {
+            Platform.runLater(() -> {
+                if (pc != null && pc.equals(pcAtendiendo)) {
+                    ticketEnAtencion = null;
+                    pcAtendiendo = null;
+                }
+                refrescarPanelTickets();
+            });
+        }
+
+        private void refrescarPanelTickets() {
+            cardTicketActivo.getStyleClass().removeAll("ticket-activo-vacio", "ticket-activo-normal", "ticket-activo-prioridad");
+            if (ticketEnAtencion != null) {
+                lblTicketActivoId.getStyleClass().removeAll("ticket-activo-id-vacio", "ticket-activo-id");
+                lblTicketActivoId.getStyleClass().add("ticket-activo-id");
+                lblTicketActivoId.setText("#" + (ticketEnAtencion.getTicketId() != null ? ticketEnAtencion.getTicketId() : "---"));
+
+                lblTicketActivoMotivo.setVisible(true);
+                lblTicketActivoMotivo.setManaged(true);
+                lblTicketActivoMotivo.setText(ticketEnAtencion.getMotivo() != null ? ticketEnAtencion.getMotivo() : "---");
+
+                hboxTicketMeta.setVisible(true);
+                hboxTicketMeta.setManaged(true);
+                lblTicketMetaPC.setText(pcAtendiendo != null ? pcAtendiendo : "---");
+                lblTicketMetaUsuario.setText(ticketEnAtencion.getNombreApellido() != null ? ticketEnAtencion.getNombreApellido() : "---");
+                lblTicketMetaHora.setText(java.time.LocalTime.now().withNano(0).toString());
+
+                lblTicketActivoBadge.setVisible(true);
+                lblTicketActivoBadge.setManaged(true);
+                if (ticketEnAtencion.isPrioridad()) {
+                    cardTicketActivo.getStyleClass().add("ticket-activo-prioridad");
+                    lblTicketActivoBadge.setText("⚡ PRIORIDAD");
+                    lblTicketActivoBadge.getStyleClass().removeAll("ticket-badge-normal", "ticket-badge-prioridad");
+                    lblTicketActivoBadge.getStyleClass().add("ticket-badge-prioridad");
+                } else {
+                    cardTicketActivo.getStyleClass().add("ticket-activo-normal");
+                    lblTicketActivoBadge.setText("Normal");
+                    lblTicketActivoBadge.getStyleClass().removeAll("ticket-badge-normal", "ticket-badge-prioridad");
+                    lblTicketActivoBadge.getStyleClass().add("ticket-badge-normal");
+                }
+            } else {
+                cardTicketActivo.getStyleClass().add("ticket-activo-vacio");
+                lblTicketActivoId.getStyleClass().removeAll("ticket-activo-id-vacio", "ticket-activo-id");
+                lblTicketActivoId.getStyleClass().add("ticket-activo-id-vacio");
+                lblTicketActivoId.setText("Sin ticket activo");
+                lblTicketActivoMotivo.setVisible(false);
+                lblTicketActivoMotivo.setManaged(false);
+                hboxTicketMeta.setVisible(false);
+                hboxTicketMeta.setManaged(false);
+                lblTicketActivoBadge.setVisible(false);
+                lblTicketActivoBadge.setManaged(false);
+            }
+
+            List<Ticket> enPrioridad = repositorio.getTicketsEnColaPrioridad();
+            List<Ticket> enNormal    = repositorio.getTicketsEnColaNormal();
+
+            vboxItemsCola.getChildren().clear();
+
+            if (enPrioridad.isEmpty() && enNormal.isEmpty()) {
+                Label empty = new Label("Cola vacía");
+                empty.getStyleClass().add("muted-label");
+                empty.setStyle("-fx-padding: 5 10 5 10;");
+                vboxItemsCola.getChildren().add(empty);
+            } else {
+                for (Ticket t : enPrioridad) vboxItemsCola.getChildren().add(crearItemCola(t));
+                for (Ticket t : enNormal)    vboxItemsCola.getChildren().add(crearItemCola(t));
+            }
+
+            int np = enPrioridad.size(), nn = enNormal.size();
+            if (np == 0 && nn == 0) {
+                lblResumenCola.setText("sin actividad");
+            } else if (np > 0) {
+                lblResumenCola.setText("⚡ " + np + " prioridad · " + nn + " normal" + (nn != 1 ? "es" : ""));
+            } else {
+                lblResumenCola.setText(nn + " en espera");
+            }
+        }
+
+        private void mostrarNotificacionDespacho(Ticket t, String pc) {
+            lblOverlayNumero.setText("#" + (t.getTicketId() != null ? t.getTicketId() : "---"));
+            lblOverlayMotivo.setText(t.getMotivo() != null ? t.getMotivo() : "---");
+            lblOverlayPC.setText(pc != null ? pc : "---");
+            lblOverlayCuenta.setText("Cerrando en 4s...");
+
+            overlayCard.getStyleClass().removeAll("overlay-card-normal", "overlay-card-prioridad");
+            overlayCard.getStyleClass().add(t.isPrioridad() ? "overlay-card-prioridad" : "overlay-card-normal");
+
+            overlayPane.setVisible(true);
+
+            Timeline tl = new Timeline(
+                new KeyFrame(Duration.seconds(1), e -> lblOverlayCuenta.setText("Cerrando en 3s...")),
+                new KeyFrame(Duration.seconds(2), e -> lblOverlayCuenta.setText("Cerrando en 2s...")),
+                new KeyFrame(Duration.seconds(3), e -> lblOverlayCuenta.setText("Cerrando en 1s...")),
+                new KeyFrame(Duration.seconds(4), e -> overlayPane.setVisible(false))
+            );
+            tl.play();
+        }
+
+        private HBox crearItemCola(Ticket t) {
+            HBox item = new HBox(8);
+            item.setAlignment(Pos.CENTER_LEFT);
+            item.getStyleClass().add(t.isPrioridad() ? "cola-item-prioridad" : "cola-item-normal");
+
+            Label id = new Label("#" + (t.getTicketId() != null ? t.getTicketId() : "---"));
+            id.getStyleClass().add(t.isPrioridad() ? "cola-item-id-prioridad" : "cola-item-id-normal");
+            id.setMinWidth(45);
+
+            Label motivo = new Label(t.getMotivo() != null ? t.getMotivo() : "---");
+            motivo.getStyleClass().add("cola-item-motivo");
+            HBox.setHgrow(motivo, Priority.ALWAYS);
+            motivo.setMaxWidth(Double.MAX_VALUE);
+
+            Label badge = new Label(t.isPrioridad() ? "⚡" : "");
+            badge.getStyleClass().add(t.isPrioridad() ? "cola-item-badge-prioridad" : "cola-item-badge-normal");
+
+            item.getChildren().addAll(id, motivo, badge);
+            return item;
         }
     }

@@ -87,4 +87,65 @@
     -fx-background-color: #f8fafc;
 }
 
+.log-area {
+    -fx-text-fill: #334155;
+    -fx-highlight-fill: rgba(224,82,82,0.15);
+}
 .log-area .content { -fx-background-color: #f8fafc; }
+
+.tickets-panel {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+}
+
+.ticket-activo-vacio {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0 #e2e8f0 #e2e8f0 #94a3b8;
+}
+.ticket-activo-normal {
+    -fx-background-color: rgba(74,222,128,0.06);
+    -fx-border-color: #e2e8f0 #e2e8f0 #e2e8f0 #4ade80;
+}
+.ticket-activo-prioridad {
+    -fx-background-color: rgba(251,191,36,0.08);
+    -fx-border-color: rgba(251,191,36,0.4) rgba(251,191,36,0.4) rgba(251,191,36,0.4) #f59e0b;
+}
+
+.ticket-activo-id-vacio  { -fx-text-fill: #94a3b8; }
+.ticket-activo-id        { -fx-text-fill: #1e293b; }
+.ticket-activo-motivo    { -fx-text-fill: #1e293b; }
+.ticket-meta-label       { -fx-text-fill: #94a3b8; }
+.ticket-meta-valor       { -fx-text-fill: #475569; }
+.ticket-meta-valor-mono  { -fx-text-fill: #475569; }
+
+.cola-list {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+}
+
+.cola-item-prioridad {
+    -fx-background-color: rgba(251,191,36,0.05);
+    -fx-border-color: transparent transparent #f1f5f9 transparent;
+}
+.cola-item-normal {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #f1f5f9 transparent;
+}
+
+.cola-item-id-prioridad { -fx-text-fill: #b45309; }
+.cola-item-id-normal    { -fx-text-fill: #1e293b; }
+.cola-item-motivo       { -fx-text-fill: #64748b; }
+.cola-item-badge-prioridad { -fx-text-fill: #b45309; }
+
+.overlay-fondo { -fx-background-color: rgba(15, 23, 42, 0.55); }
+
+.overlay-card-normal,
+.overlay-card-prioridad {
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 24, 0, 0, 4);
+}
+
+.overlay-numero       { -fx-text-fill: #1e293b; }
+.overlay-motivo       { -fx-text-fill: #64748b; }
+.overlay-pase-label   { -fx-text-fill: #94a3b8; }
+.overlay-cuenta       { -fx-text-fill: #94a3b8; }

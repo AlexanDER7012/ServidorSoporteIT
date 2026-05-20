@@ -1,5 +1,7 @@
 package estructuraDatos;
 
+import java.util.ArrayList;
+import java.util.List;
 import sistema.sistemadesoportetecnicoit.shared.models.Ticket;
 
 public class ColaTicket {
@@ -42,6 +44,16 @@ public Ticket eliminarCola(){
 public int getTamano() {
         return tamano;
     }
+
+public List<Ticket> getTickets() {
+    List<Ticket> lista = new ArrayList<>();
+    NodoTicket recorrer = head;
+    while (recorrer != null) {
+        lista.add(recorrer.getDato());
+        recorrer = recorrer.getSiguiente();
+    }
+    return lista;
+}
 
 public void mostrarCola(){
         if(head == null){

@@ -11,149 +11,195 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="screenRoot" styleClass="screen-root" prefHeight="620.0" prefWidth="960.0"
-      xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.ServidorPC1Controller">
+<StackPane fx:id="mainRoot"
+           xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controllers.ServidorPC1Controller">
     <stylesheets>
         <URL value="@../styles/servidorpc1.css"/>
     </stylesheets>
 
-    <HBox styleClass="panel-header" alignment="CENTER_LEFT" spacing="14">
-        <FontIcon iconLiteral="fas-server" iconSize="22" styleClass="header-icon"/>
-        <VBox spacing="2">
-            <Label text="SERVIDOR CENTRAL · PC1" styleClass="header-title"/>
-            <Label text="Sistema de Soporte IT" styleClass="header-subtitle"/>
-        </VBox>
-        <Pane HBox.hgrow="ALWAYS"/>
-        <Button fx:id="btnTema" onAction="#toggleTema" styleClass="btn-ghost"
-                text="☀" style="-fx-padding: 6 10 6 10; -fx-font-size: 14px;"/>
-        <HBox styleClass="status-pill-offline" alignment="CENTER" spacing="8">
-            <Circle fx:id="ledEstado" radius="5" styleClass="led-offline"/>
-            <Label text="OFFLINE" styleClass="status-pill-label-offline"/>
-        </HBox>
-    </HBox>
+    <VBox fx:id="screenRoot" styleClass="screen-root" prefHeight="620.0" prefWidth="960.0">
 
-    <SplitPane styleClass="split-dark" dividerPositions="0.175, 0.62" VBox.vgrow="ALWAYS">
-
-        <VBox styleClass="sidebar" spacing="20" minWidth="140" maxWidth="180">
-            <padding><Insets top="20" right="14" bottom="20" left="14"/></padding>
-
-            <VBox spacing="8">
-                <Label text="SERVIDOR" styleClass="section-label"/>
-                <Button fx:id="btnStart" onAction="#iniciarServidor" text="INICIAR"
-                        styleClass="btn-iniciar" maxWidth="Infinity" contentDisplay="LEFT" graphicTextGap="8">
-                    <graphic><FontIcon iconLiteral="fas-play" iconSize="10"/></graphic>
-                </Button>
-                <Button fx:id="btnStop" onAction="#detenerServidor" text="DETENER"
-                        styleClass="btn-ghost" maxWidth="Infinity" contentDisplay="LEFT" graphicTextGap="8">
-                    <graphic><FontIcon iconLiteral="fas-stop" iconSize="10"/></graphic>
-                </Button>
+        <HBox styleClass="panel-header" alignment="CENTER_LEFT" spacing="14">
+            <FontIcon iconLiteral="fas-server" iconSize="22" styleClass="header-icon"/>
+            <VBox spacing="2">
+                <Label text="SERVIDOR CENTRAL · PC1" styleClass="header-title"/>
+                <Label text="Sistema de Soporte IT" styleClass="header-subtitle"/>
             </VBox>
-
-            <VBox spacing="8">
-                <Label text="COLAS" styleClass="section-label"/>
-                <HBox styleClass="counter-card" spacing="12" alignment="CENTER_LEFT">
-                    <FontIcon iconLiteral="fas-list" iconSize="14" styleClass="icon-ghost"/>
-                    <VBox spacing="2">
-                        <Label text="Normal" styleClass="muted-label"/>
-                        <Label fx:id="lblColaNormal" text="0" styleClass="counter-value"/>
-                    </VBox>
-                </HBox>
-                <HBox styleClass="counter-card" spacing="12" alignment="CENTER_LEFT">
-                    <FontIcon iconLiteral="fas-bolt" iconSize="14" styleClass="icon-priority"/>
-                    <VBox spacing="2">
-                        <Label text="Prioridad" styleClass="muted-label"/>
-                        <Label fx:id="lblColaPrioridad" text="0" styleClass="counter-value-priority"/>
-                    </VBox>
-                </HBox>
-            </VBox>
-        </VBox>
-
-        <VBox styleClass="pc-panel" spacing="14">
-            <padding><Insets top="20" right="16" bottom="16" left="16"/></padding>
-            <Label text="ESTACIONES CONECTADAS" styleClass="section-label"/>
-
-            <GridPane hgap="10" vgap="10" VBox.vgrow="ALWAYS">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints vgrow="ALWAYS" percentHeight="50"/>
-                    <RowConstraints vgrow="ALWAYS" percentHeight="50"/>
-                </rowConstraints>
-
-                <VBox fx:id="cardPC2" styleClass="pc-card-offline" spacing="6"
-                      GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
-                    <HBox alignment="CENTER_LEFT" spacing="8">
-                        <FontIcon fx:id="iconPC2" iconLiteral="fas-desktop" iconSize="15" styleClass="pc-icon-offline"/>
-                        <Label text="PC2" styleClass="pc-card-name"/>
-                        <Pane HBox.hgrow="ALWAYS"/>
-                        <Circle fx:id="ledPC2" radius="5" styleClass="led-offline"/>
-                    </HBox>
-                    <Label text="Recepción" styleClass="pc-card-role"/>
-                    <Label fx:id="ipPC2" text="---" styleClass="pc-card-ip"/>
-                    <Label fx:id="statusPC2" text="OFFLINE" styleClass="pc-status-offline"/>
-                </VBox>
-
-                <VBox fx:id="cardPC3" styleClass="pc-card-offline" spacing="6"
-                      GridPane.columnIndex="1" GridPane.rowIndex="0">
-                    <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
-                    <HBox alignment="CENTER_LEFT" spacing="8">
-                        <FontIcon fx:id="iconPC3" iconLiteral="fas-desktop" iconSize="15" styleClass="pc-icon-offline"/>
-                        <Label text="PC3" styleClass="pc-card-name"/>
-                        <Pane HBox.hgrow="ALWAYS"/>
-                        <Circle fx:id="ledPC3" radius="5" styleClass="led-offline"/>
-                    </HBox>
-                    <Label text="Técnico 1" styleClass="pc-card-role"/>
-                    <Label fx:id="ipPC3" text="---" styleClass="pc-card-ip"/>
-                    <Label fx:id="statusPC3" text="OFFLINE" styleClass="pc-status-offline"/>
-                </VBox>
-
-                <VBox fx:id="cardPC4" styleClass="pc-card-offline" spacing="6"
-                      GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
-                    <HBox alignment="CENTER_LEFT" spacing="8">
-                        <FontIcon fx:id="iconPC4" iconLiteral="fas-desktop" iconSize="15" styleClass="pc-icon-offline"/>
-                        <Label text="PC4" styleClass="pc-card-name"/>
-                        <Pane HBox.hgrow="ALWAYS"/>
-                        <Circle fx:id="ledPC4" radius="5" styleClass="led-offline"/>
-                    </HBox>
-                    <Label text="Técnico 2" styleClass="pc-card-role"/>
-                    <Label fx:id="ipPC4" text="---" styleClass="pc-card-ip"/>
-                    <Label fx:id="statusPC4" text="OFFLINE" styleClass="pc-status-offline"/>
-                </VBox>
-
-                <VBox fx:id="cardPC5" styleClass="pc-card-offline" spacing="6"
-                      GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
-                    <HBox alignment="CENTER_LEFT" spacing="8">
-                        <FontIcon fx:id="iconPC5" iconLiteral="fas-desktop" iconSize="15" styleClass="pc-icon-offline"/>
-                        <Label text="PC5" styleClass="pc-card-name"/>
-                        <Pane HBox.hgrow="ALWAYS"/>
-                        <Circle fx:id="ledPC5" radius="5" styleClass="led-offline"/>
-                    </HBox>
-                    <Label text="Técnico 3" styleClass="pc-card-role"/>
-                    <Label fx:id="ipPC5" text="---" styleClass="pc-card-ip"/>
-                    <Label fx:id="statusPC5" text="OFFLINE" styleClass="pc-status-offline"/>
-                </VBox>
-            </GridPane>
-        </VBox>
-
-        <VBox styleClass="log-panel" minWidth="200">
-            <HBox styleClass="log-header" alignment="CENTER_LEFT" spacing="8">
-                <padding><Insets top="10" right="14" bottom="10" left="14"/></padding>
-                <FontIcon iconLiteral="fas-terminal" iconSize="12" styleClass="icon-secondary"/>
-                <Label text="LOG DE ACTIVIDAD" styleClass="section-label"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnTema" onAction="#toggleTema" styleClass="btn-ghost"
+                    text="☀" style="-fx-padding: 6 10 6 10; -fx-font-size: 14px;"/>
+            <HBox styleClass="status-pill-offline" alignment="CENTER" spacing="8">
+                <Circle fx:id="ledEstado" radius="5" styleClass="led-offline"/>
+                <Label text="OFFLINE" styleClass="status-pill-label-offline"/>
             </HBox>
-            <TextArea fx:id="txtLog" editable="false" styleClass="log-area" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        </HBox>
 
-    </SplitPane>
-</VBox>
+        <SplitPane styleClass="split-dark" dividerPositions="0.175, 0.62" VBox.vgrow="ALWAYS">
+
+            <VBox styleClass="sidebar" spacing="20" minWidth="140" maxWidth="180">
+                <padding><Insets top="20" right="14" bottom="20" left="14"/></padding>
+                <VBox spacing="8">
+                    <Label text="SERVIDOR" styleClass="section-label"/>
+                    <Button fx:id="btnStart" onAction="#iniciarServidor" text="INICIAR"
+                            styleClass="btn-iniciar" maxWidth="Infinity" contentDisplay="LEFT" graphicTextGap="8">
+                        <graphic><FontIcon iconLiteral="fas-play" iconSize="10"/></graphic>
+                    </Button>
+                    <Button fx:id="btnStop" onAction="#detenerServidor" text="DETENER"
+                            styleClass="btn-ghost" maxWidth="Infinity" contentDisplay="LEFT" graphicTextGap="8">
+                        <graphic><FontIcon iconLiteral="fas-stop" iconSize="10"/></graphic>
+                    </Button>
+                </VBox>
+                <VBox spacing="8">
+                    <Label text="COLAS" styleClass="section-label"/>
+                    <HBox styleClass="counter-card" spacing="12" alignment="CENTER_LEFT">
+                        <FontIcon iconLiteral="fas-list" iconSize="14" styleClass="icon-ghost"/>
+                        <VBox spacing="2">
+                            <Label text="Normal" styleClass="muted-label"/>
+                            <Label fx:id="lblColaNormal" text="0" styleClass="counter-value"/>
+                        </VBox>
+                    </HBox>
+                    <HBox styleClass="counter-card" spacing="12" alignment="CENTER_LEFT">
+                        <FontIcon iconLiteral="fas-bolt" iconSize="14" styleClass="icon-priority"/>
+                        <VBox spacing="2">
+                            <Label text="Prioridad" styleClass="muted-label"/>
+                            <Label fx:id="lblColaPrioridad" text="0" styleClass="counter-value-priority"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <VBox styleClass="pc-panel" spacing="14">
+                <padding><Insets top="20" right="16" bottom="16" left="16"/></padding>
+                <Label text="ESTACIONES CONECTADAS" styleClass="section-label"/>
+                <GridPane hgap="10" vgap="10" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="ALWAYS" percentHeight="50"/>
+                        <RowConstraints vgrow="ALWAYS" percentHeight="50"/>
+                    </rowConstraints>
+                    <VBox fx:id="cardPC2" styleClass="pc-card-offline" spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <FontIcon fx:id="iconPC2" iconLiteral="fas-desktop" iconSize="15" styleClass="pc-icon-offline"/>
+                            <Label text="PC2" styleClass="pc-card-name"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Circle fx:id="ledPC2" radius="5" styleClass="led-offline"/>
+                        </HBox>
+                        <Label text="Recepción" styleClass="pc-card-role"/>
+                        <Label fx:id="ipPC2" text="---" styleClass="pc-card-ip"/>
+                        <Label fx:id="statusPC2" text="OFFLINE" styleClass="pc-status-offline"/>
+                    </VBox>
+                    <VBox fx:id="cardPC3" styleClass="pc-card-offline" spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <FontIcon fx:id="iconPC3" iconLiteral="fas-desktop" iconSize="15" styleClass="pc-icon-offline"/>
+                            <Label text="PC3" styleClass="pc-card-name"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Circle fx:id="ledPC3" radius="5" styleClass="led-offline"/>
+                        </HBox>
+                        <Label text="Técnico 1" styleClass="pc-card-role"/>
+                        <Label fx:id="ipPC3" text="---" styleClass="pc-card-ip"/>
+                        <Label fx:id="statusPC3" text="OFFLINE" styleClass="pc-status-offline"/>
+                    </VBox>
+                    <VBox fx:id="cardPC4" styleClass="pc-card-offline" spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <FontIcon fx:id="iconPC4" iconLiteral="fas-desktop" iconSize="15" styleClass="pc-icon-offline"/>
+                            <Label text="PC4" styleClass="pc-card-name"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Circle fx:id="ledPC4" radius="5" styleClass="led-offline"/>
+                        </HBox>
+                        <Label text="Técnico 2" styleClass="pc-card-role"/>
+                        <Label fx:id="ipPC4" text="---" styleClass="pc-card-ip"/>
+                        <Label fx:id="statusPC4" text="OFFLINE" styleClass="pc-status-offline"/>
+                    </VBox>
+                    <VBox fx:id="cardPC5" styleClass="pc-card-offline" spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <FontIcon fx:id="iconPC5" iconLiteral="fas-desktop" iconSize="15" styleClass="pc-icon-offline"/>
+                            <Label text="PC5" styleClass="pc-card-name"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Circle fx:id="ledPC5" radius="5" styleClass="led-offline"/>
+                        </HBox>
+                        <Label text="Técnico 3" styleClass="pc-card-role"/>
+                        <Label fx:id="ipPC5" text="---" styleClass="pc-card-ip"/>
+                        <Label fx:id="statusPC5" text="OFFLINE" styleClass="pc-status-offline"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <VBox styleClass="log-panel" minWidth="200">
+                <HBox styleClass="log-header" alignment="CENTER_LEFT" spacing="8">
+                    <padding><Insets top="10" right="14" bottom="10" left="14"/></padding>
+                    <FontIcon iconLiteral="fas-terminal" iconSize="12" styleClass="icon-secondary"/>
+                    <Label text="LOG DE ACTIVIDAD" styleClass="section-label"/>
+                </HBox>
+                <TextArea fx:id="txtLog" editable="false" styleClass="log-area" VBox.vgrow="ALWAYS"/>
+
+                <VBox styleClass="tickets-panel" spacing="7">
+                    <padding><Insets top="10" right="14" bottom="12" left="14"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <FontIcon iconLiteral="fas-ticket-alt" iconSize="11" styleClass="icon-secondary"/>
+                        <Label text="TICKETS" styleClass="section-label"/>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblResumenCola" text="sin actividad" styleClass="muted-label"/>
+                    </HBox>
+
+                    <VBox fx:id="cardTicketActivo" styleClass="ticket-activo-vacio" spacing="5">
+                        <padding><Insets top="11" right="12" bottom="11" left="12"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="6">
+                            <Label text="EN ATENCIÓN" styleClass="section-label"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblTicketActivoBadge" text="" styleClass="ticket-badge-normal" visible="false" managed="false"/>
+                        </HBox>
+                        <Label fx:id="lblTicketActivoId" text="Sin ticket activo" styleClass="ticket-activo-id-vacio"/>
+                        <Label fx:id="lblTicketActivoMotivo" text="" styleClass="ticket-activo-motivo" visible="false" managed="false"/>
+                        <HBox fx:id="hboxTicketMeta" spacing="16" visible="false" managed="false">
+                            <VBox spacing="1">
+                                <Label text="ATENDIDO EN" styleClass="ticket-meta-label"/>
+                                <Label fx:id="lblTicketMetaPC" text="" styleClass="ticket-meta-valor"/>
+                            </VBox>
+                            <VBox spacing="1">
+                                <Label text="USUARIO" styleClass="ticket-meta-label"/>
+                                <Label fx:id="lblTicketMetaUsuario" text="" styleClass="ticket-meta-valor"/>
+                            </VBox>
+                            <VBox spacing="1">
+                                <Label text="INICIO" styleClass="ticket-meta-label"/>
+                                <Label fx:id="lblTicketMetaHora" text="" styleClass="ticket-meta-valor-mono"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox fx:id="vboxItemsCola" styleClass="cola-list" spacing="0"/>
+                </VBox>
+            </VBox>
+
+        </SplitPane>
+    </VBox>
+
+    <StackPane fx:id="overlayPane" styleClass="overlay-fondo" visible="false">
+        <VBox fx:id="overlayCard" styleClass="overlay-card-normal" spacing="12" alignment="CENTER"
+              maxWidth="320" StackPane.alignment="CENTER">
+            <padding><Insets top="28" right="36" bottom="28" left="36"/></padding>
+            <Label text="TICKET DESPACHADO" styleClass="section-label"/>
+            <Label fx:id="lblOverlayNumero" text="#000" styleClass="overlay-numero"/>
+            <Label fx:id="lblOverlayMotivo" text="" styleClass="overlay-motivo"/>
+            <HBox alignment="CENTER" spacing="8">
+                <Label text="PASE A:" styleClass="overlay-pase-label"/>
+                <Label fx:id="lblOverlayPC" text="" styleClass="overlay-pase-pc"/>
+            </HBox>
+            <Label fx:id="lblOverlayCuenta" text="Cerrando en 4s..." styleClass="overlay-cuenta"/>
+        </VBox>
+    </StackPane>
+
+</StackPane>
